@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Reservation{% endblock %}
+
+{% block body %}
+
+    <h1>Create new Reservation</h1>
+    
+    <form name="reservation" method="post" action="/reservation/new/submitForm"> 
+        <select id="reservation_Salle" name="salle">
+            {%- for s in salles -%}
+                {%- set prestas = "" -%}
+                {%- for presta in s.getPrestations() -%}
+                    {% set prestas = prestas ~ presta.getId() ~ "," %}
+                {%- endfor -%}
+                <option value="{{ s.getId() }}" data-presta="{{ prestas }}" > {{s.name}} - {{s.price}}€ </option>
+            {%- endfor -%} 
+        </select>
+
+        <table class="checkboxPresta">
+            <tr>
+                <th></th>
+                <th>Prestation</th>
+                <th>Prix fixe</th>
+                <th>Prix / m²</th>
+                <th>Prix / personne</th>
+            </tr>
+
+            {% for p in prestations %}
+                <tr class="prestations_list" id="prestation_{{ p.getId() }}">
+                    <td ><input type="checkbox" name="prestations[]" value="{{ p.getId() }}"></td>
+                    <td> {{ p.getName() }} </td>
+                    <td> {{ p.getPriceFixed() }}  </td>
+                    <td> {{ p.getPriceSurface() }}  </td>
+                    <td> {{ p.getPriceUser() }}  </td>
+            {% endfor %}
+        </table>
+
+        <label for="#resa_start"> Date de début de location</label>
+        <input id="resa_start" type="date" name="date_start"> 
+        <label for="#resa_end"> Date de fin de l ocation</label>
+        <input id="resa_end" type="date" name="date_end"> 
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        
+    
+    
+    </form>
+    
+    {#{ include('reservation/_form.html.twig') }#}
+
+    {# <h1>Nouvelle Reservation</h1> #}
+
+    {# <div class="edit-form">
+        {{ include('reservation/_form.html.twig') }}
+    </div> #}
+
+    <a href="{{ path('reservation_index') }}">Retourner à la liste</a>
+
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        function showPrestations(){
+            var prestas = $("#reservation_Salle").find('option[value=' + $("#reservation_Salle").val()+']').data('presta');
+            console.log(prestas);
+            var res = prestas.split(',');
+            $(".prestations_list").css("display","none");
+            for( var i=0; i < res.length ; i++ ){
+                if(res[i] != ""){
+                    $('#prestation_'+res[i]).css( "display", "block" );
+                }
+            }
+        }
+
+        $("#reservation_Salle").on("change",function(){
+            showPrestations();
+        });
+
+        showPrestations();
+    </script>
+{% endblock %}

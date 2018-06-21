@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Air-Sal pour tout le monde et son chat!{% endblock %}</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+        {% block stylesheets %}{% endblock %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/js/commun.js"> </script>  
+    </head>
+    <body>
+        <nav class="nav">
+            <ul class="nav__inner">
+                <li class="nav__item nav__item--logo">
+                    <a href="/" class="nav__link">
+                        <img src="" alt="Logo" class="nav__logo">
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a href="/" class="nav__link">Accueil</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/salle/" class="nav__link">Salles</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/contact/" class="nav__link">Contact</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/reservation/" class="nav__link">Reservations</a>
+                </li>
+                {% if app.user != null %}
+                    {# TODO admin only routes and related checks #}
+                {% endif %}
+                <li class="nav__item">
+                    {% if app.user != null %}
+                        <a href="/logout/" class="nav__link">Se deconnecter</a>
+                    {%  else %}
+                        <a href="/login/" class="nav__link">Se connecter</a>
+                    {%  endif %}
+                </li>
+            </ul>
+        </nav>
+        {% block body %}{% endblock %}
+        <script src="//cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

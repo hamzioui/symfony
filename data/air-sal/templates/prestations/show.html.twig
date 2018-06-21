@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prestations{% endblock %}
+
+{% block body %}
+    <h1>Prestations</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prestation.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ prestation.name }}</td>
+            </tr>
+            <tr>
+                <th>Price_surface</th>
+                <td>{{ prestation.priceSurface }}</td>
+            </tr>
+            <tr>
+                <th>Price_user</th>
+                <td>{{ prestation.priceUser }}</td>
+            </tr>
+            <tr>
+                <th>Price_fixed</th>
+                <td>{{ prestation.priceFixed }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('prestations_index') }}">back to list</a>
+
+    <a href="{{ path('prestations_edit', {'id': prestation.id}) }}">edit</a>
+
+    {{ include('prestations/_delete_form.html.twig') }}
+{% endblock %}

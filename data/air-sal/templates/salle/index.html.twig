@@ -1,0 +1,65 @@
+{% extends 'tables.html.twig' %}
+
+{% block title %}Air-sal vous présente ses salles{% endblock %}
+
+{% block content %}
+
+    <h1>Nos salles</h1>
+
+    <table class="table index">
+        <thead>
+        <tr>
+            <th>Adresse</th>
+            <th>Surface</th>
+            <th>Capacité</th>
+
+            {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                <th>Published</th>
+            {% endif %}
+
+            <th>Nom</th>
+            <th>Price</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for salle in salles %}
+            <tr>
+                <td>{{ salle.address }}</td>
+                <td>{{ salle.size }}</td>
+                <td>{{ salle.capacity }}</td>
+
+                {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                    <td>{{ salle.published ? 'Yes' : 'No' }}</td>
+                {% endif %}
+
+                <td>{{ salle.name }}</td>
+                <td>{{ salle.price }}€</td>
+                <td>
+                    <a href="{{ path('salle_show', {'id': salle.id}) }}">show</a>
+                    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+                        <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if app.user != null and app.user.hasrole("ROLE_ADMIN") %}
+        <a href="{{ path('salle_new') }}">Create new</a>
+    {% endif %}
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('table.table.index').DataTable();
+        });
+    </script>
+{% endblock %}

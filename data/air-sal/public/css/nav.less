@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    margin-top: @nav-height + 10px;
+    padding-top: .1px;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: @nav-height;
+    background-color: @main-color;
+    box-shadow: 0 1px 10px 3px black;
+    display: flex;
+
+    &__inner {
+        list-style: none;
+        display: flex;
+        width: 100%;
+        max-width: @block-width;
+        margin: auto;
+        justify-content: flex-end;
+        position: relative;
+    }
+
+    &__item {
+        margin-left: 20px;
+        &&--logo {
+            position: absolute;
+            left: 0;
+            margin: 0;
+        }
+    }
+
+    &__link {
+        text-transform: uppercase;
+        text-decoration: none;
+        color: @accent-color;
+        font-weight: bold;
+        &:visited {
+            color: @accent-color;
+        }
+    }
+
+}

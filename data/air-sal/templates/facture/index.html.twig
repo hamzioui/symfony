@@ -1,0 +1,43 @@
+{% extends 'tables.html.twig' %}
+
+{% block title %}Facture index{% endblock %}
+
+{% block content %}
+    <h1>Facture index</h1>
+
+    <table class="table index">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Price</th>
+                <th>Data</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.id }}</td>
+                <td>{{ facture.price }}</td>
+                <td>{{ facture.data }}</td>
+                <td>
+                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
+                    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+            $('table.table.index').DataTable();
+        } );
+    </script>
+{% endblock %}

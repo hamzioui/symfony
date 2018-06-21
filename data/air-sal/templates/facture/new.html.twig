@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Facture{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle Facture</h1>
+
+    <div class="edit-form">
+        {{ include('facture/_form.html.twig') }}
+    </div>
+
+    <a href="{{ path('facture_index') }}">Retourner à la liste</a>
+{% endblock %}

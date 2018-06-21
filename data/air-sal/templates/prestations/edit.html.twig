@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Prestations{% endblock %}
+
+{% block body %}
+    <h1>Edit Prestations</h1>
+    <div class="edit-form">
+        {{ include('prestations/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+
+    <a href="{{ path('prestations_index') }}">Retourner à la liste</a>
+
+    {{ include('prestations/_delete_form.html.twig') }}
+{% endblock %}
